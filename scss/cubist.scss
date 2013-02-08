@@ -1,0 +1,19 @@
+@import "compass/css3";
+
+* {
+  //@include box-sizing(border-box);
+}
+
+html,
+body {
+  height: 100%;
+  overflow : hidden;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.cubist-cube {
+  width: 100%;
+  height: 100%;      
+}
+
+.cubist-cube .

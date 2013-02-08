@@ -1,17 +1,15 @@
 Cube = require './Cube'
-Face = require './Face'
+Face = require './Page'
 
 class CubeRenderer
   _root  : null
   _cube  : null
-
+  
   constructor : (cubistRootEl)->
     @_root = cubistRootEl
 
   getCube : (selector, containerClass)->
     @_cube = new Cube(@_root, containerClass)
-    
-    
     @_addFacesToCube @_findFaces(selector)
     
     return @_cube

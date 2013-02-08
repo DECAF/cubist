@@ -1,40 +1,42 @@
 {
-    "name"            : "cubist",
-    "description"     : "webpages as cubes",
-    "version"         : "0.1.0",
-    "homepage"        : "https://github.com/decaf/cubist",
-    "author"          : {
-        "name"  : "Andreas Wehr",
-        "email" : "-",
-        "url"   : "https://github.com/grmlin"
-    },
-    "repository"      : {
-        "type" : "git",
-        "url"  : "git://github.com/decaf/cubist.git"
-    },
-    "bugs"            : {
-        "url" : "https://github.com/decaf/cubist/issues"
-    },
-    "licenses"        : [
-        {
-            "type" : "MIT",
-            "url"  : "https://github.com/decaf/cubist/blob/master/LICENSE-MIT"
-        }
-    ],
-    "main"            : "lib/cubist.coffee",
-    "engines"         : {
-        "node" : "*"
-    },
-    "scripts"         : {
-        "test" : "grunt test"
-    },
-    "devDependencies" : {
-        "grunt"                : "~0.4.0",
-        "grunt-contrib-coffee" : "~0.4.0",
-        "webmake"              : "~0.3.14",
-        "grunt-contrib-clean"  : "~0.4.0a",
-        "grunt-contrib-uglify" : "~0.1.1",
-        "grunt-contrib-watch"  : "~0.2.0"
-    },
-    "keywords"        : []
+  "name": "cubist",
+  "description": "webpages as cubes",
+  "version": "0.1.0",
+  "homepage": "https://github.com/decaf/cubist",
+  "author": {
+    "name": "Andreas Wehr",
+    "email": "-",
+    "url": "https://github.com/grmlin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/decaf/cubist.git"
+  },
+  "bugs": {
+    "url": "https://github.com/decaf/cubist/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/decaf/cubist/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/cubist.coffee",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-coffee": "~0.4.0",
+    "webmake": "~0.3.14",
+    "grunt-contrib-clean": "~0.4.0a",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-compass": "~0.3.8",
+    "grunt-contrib-concat": "~0.1.2"
+  },
+  "keywords": []
 }

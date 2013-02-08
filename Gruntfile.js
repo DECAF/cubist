@@ -5,52 +5,52 @@ var COFFEE_SRC = 'lib';
 var COFFEE_TARGET = 'src';
 var BUILD_TARGET = 'public';
 
-var BUILD_PATH = path.join(__dirname, BUILD_TARGET);
-var BUILD_FILE = path.join(BUILD_PATH, APP_FILE + '.js');
-
+var BUILD_PATH     = path.join(__dirname, BUILD_TARGET);
+var BUILD_FILE     = path.join(BUILD_PATH, APP_FILE + '.js');
+var BUILD_MIN_FILE = path.join(__dirname, BUILD_TARGET, APP_FILE + '.min.js')
 var uglifyOptions = {
     mini : {
         files : {}
     }
 };
 
-uglifyOptions.mini.files[path.join(__dirname, BUILD_TARGET, APP_FILE + '.min.js')] = BUILD_FILE;
+uglifyOptions.mini.files[BUILD_MIN_FILE] = BUILD_FILE;
 
 module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg        : '<json:package.json>',
-        meta       : {
+        pkg     : '<json:package.json>',
+        meta    : {
             banner : '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
                 '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
                 '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
                 ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
         },
-        concat     : {
+        concat  : {
             dist : {
                 src  : ['<banner:meta.banner>', '<file_strip_banner:lib/<%= pkg.name %>.js>'],
                 dest : 'dist/<%= pkg.name %>.js'
             }
         },
-        min        : {
+        min     : {
             dist : {
                 src  : ['<banner:meta.banner>', '<config:concat.dist.dest>'],
                 dest : 'dist/<%= pkg.name %>.min.js'
             }
         },
-        test       : {
+        test    : {
             files : ['test/**/*.js']
         },
-        lint       : {
+        lint    : {
             files : ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
         },
-        watch      : {
+        watch   : {
             files : '<config:lint.files>',
             tasks : 'lint test'
         },
-        jshint     : {
+        jshint  : {
             options : {
                 curly   : true,
                 eqeqeq  : true,
@@ -68,8 +68,8 @@ module.exports = function (grunt) {
                 module  : false
             }
         },
-        uglify     : uglifyOptions,
-        coffee     : {
+        uglify  : uglifyOptions,
+        coffee  : {
             glob_to_multiple : {
                 expand  : true,
                 cwd     : COFFEE_SRC,
@@ -81,20 +81,62 @@ module.exports = function (grunt) {
                 }
             }
         },
-        watch      : {
-            files : COFFEE_SRC + '/**/*',
-            tasks : ['default']
+        watch   : {
+            coffee  : {
+                files : COFFEE_SRC + '/**/*',
+                tasks : ['default']
+            },
+            compass : {
+                files : [ 'scss/**/*' ],
+                tasks : [ 'compass' ]
+            }
+        },
+        compass : {
+            dev  : {
+                src            : 'scss',
+                dest           : 'public/css',
+                linecomments   : true,
+                forcecompile   : true,
+                require        : [],
+                debugsass      : true,
+                relativeassets : true
+            },
+            prod : {
+                src            : 'scss',
+                dest           : 'public/css/min',
+                outputstyle    : 'compressed',
+                linecomments   : false,
+                forcecompile   : true,
+                require        : [],
+                debugsass      : false,
+                relativeassets : true
+            }
+        },
+        concat  : {
+            options : {
+                separator : ';'
+            },
+            min    : {
+                src  : ['vendor/jquery-1.9.1.min.js','vendor/jquery.transit.min.js',BUILD_MIN_FILE],
+                dest : path.join(BUILD_PATH,APP_FILE + '.all.min.js')
+            },
+            normal    : {
+                src  : ['vendor/jquery-1.9.1.min.js','vendor/jquery.transit.min.js',BUILD_FILE],
+                dest : path.join(BUILD_PATH,APP_FILE + '.all.js')
+            }
         }
-        
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-compass');
 
 
     // Default task.
-    grunt.registerTask('default', ['coffee', 'webmake', 'uglify']);
+    grunt.registerTask('default', ['coffee', 'webmake', 'uglify','concat']);
 
 
     grunt.registerTask('webmake', 'stitching commonjs modules for the client.', function () {

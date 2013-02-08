@@ -1,37 +1,26 @@
+Room        = require './Room'
+CubeOptions = require './CubeOptions'
+
 class Cube
-  @SIDING_CLASS_APPENDIX : '-siding'
-  @FRONT                 : 'cube-front'
-  @BACK                  : 'cube-back'
+  _el          : null
+  _room        : null
 
-  _el     : null
-  _faces  : null
-  _cube   : null
-  _siding : null
-
-  constructor : (@_el, containerClass) ->
-    @_faces = []
-    @_cube = document.createElement 'div'
-    @_siding = document.createElement 'div'
-
-    @_cube.className = containerClass
-    @_siding.className = containerClass + Cube.SIDING_CLASS_APPENDIX
-
-    @_el.appendChild @_cube
-
-  addFace : (face) ->
-    @_faces.push face
-    @_hideFace @getFaceCount() - 1
-
-  _hideFace : (index) ->
-    @_siding.appendChild @_faces[index]?.el
-
-  #_showFace: () ->  
-
+  constructor : (@_el, options) ->
+    @_room = new Room @_el
+    @_room.create(options.get(CubeOptions.CSS_CLASS_CONTAINER))
+    @_room.findPages(options.get(CubeOptions.PAGE_SELECTOR)) 
+    
   show : (index) ->
-    @_cube.appendChild(@_faces[index].el) unless @_faces[index] is undefined
+    unless index < 0 or index > @getPageCount() - 1
+      @_showPage index, index % 2 is 0
 
-  getFaceCount : ->
-    @_faces.length
+  _showPage: (index, isEven) ->
+    action = if isEven then 'showFrontPage' else 'showBackPage' 
+    @_room[action] index
+
+  getPageCount : ->
+    @_room.size()
+
+
 
 module.exports = Cube
-  
