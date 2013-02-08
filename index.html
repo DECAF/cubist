@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cubist</title>
+    <script type="text/javascript" src="public/cubist.js"></script>
+    
+</head>
+<body>
+
+<div id="cubist">
+    <section class="face">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Facilis magnam maxime non officiis sed sunt totam
+            vel vero.Est, ipsam?</p>
+    </section>
+    <section class="face">
+        <p>Aliquam commodi cupiditate dolorum earum ex facere, harum illo illum iure labore libero nam quae quam, sequi
+            soluta voluptas voluptate?</p>
+    </section>
+    <section class="face">
+        <p>Aliquid debitis eligendi error iste porro quas, repellat totam ut vel veniam.Delectus eius eos illo numquam
+            repellendus saepe voluptas.</p>
+    </section>
+    <section class="face">
+        <p>Debitis dolorum ex facere in ipsam magnam maxime molestiae, odio odit officia perspiciatis quae quam qui,
+            quia rerum ut voluptate?</p>
+    </section>
+    <section class="face">
+        <p>At cumque incidunt molestiae nihil repellendus!Consectetur, eaque eveniet natus officiis tempore
+            velit.Accusantium at deserunt est quas ratione recusandae.</p>
+    </section>
+</div>
+
+<script type="text/javascript">
+    (function(){
+        var cube = new Cubist(document.getElementById('cubist'),{faceSelector:'.face'});
+        console.log(cube)
+        console.log(cube.size())
+    }());
+</script>
+</body>
+</html>
