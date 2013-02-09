@@ -2,17 +2,10 @@
 
 FeatureCheck = require './util/FeatureCheck'
 helper       = require './util/helper'
-CubeOptions  = require './cube/CubeOptions'
+CubeOptions  = require './config/CubistOptions'
 CubeFactory  = require './cube/CubeFactory'
-CubeRenderer = require './cube/CubeRenderer'
 
 class Cubist
-  @defaults :
-    faceSelector       : 'section'
-    cubeContainerClass : 'cubist-cube'
-    cssClassReady      : 'cubist-ready'
-    start              : 0
-
   el       : null
   _cube    : null
 

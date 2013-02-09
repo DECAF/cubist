@@ -68,3 +68,7 @@ module.exports =
     if (module.exports.hasClass(element, className))
       reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
       element.className = element.className.replace(reg, ' ')
+  uid           : do ->
+    i = 0
+    return ->
+      i++    

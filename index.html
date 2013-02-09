@@ -2,9 +2,41 @@
 <html>
 <head>
     <title>cubist</title>
+    <link rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css"/>
     <link rel="stylesheet" href="public/css/cubist.css"/>
+    <style type="text/css">
+
+        html,
+        body {
+            font-family : sans-serif;
+            height      : 100%;
+            overflow    : hidden;
+        }
+
+        #cubist {
+            width  : 100%;
+            height : 100%;
+            opacity : 0;
+        }
+        #cubist.cubist-ready {
+            opacity: 1;
+        }
+
+        .cubist-face-front {
+            background: grey;
+        }
+
+        .cubist-face-back {
+            background: violet;
+
+        }
+
+        .face {
+            padding : 20px;
+        }
+    </style>
     <script type="text/javascript" src="public/cubist.all.js"></script>
-    
+
 </head>
 <body>
 
@@ -32,10 +64,13 @@
 </div>
 
 <script type="text/javascript">
-    (function(){
-        var cube = new Cubist(document.getElementById('cubist'),{faceSelector:'.face'});
+    (function () {
+        var cube = new Cubist(document.getElementById('cubist'), {faceSelector : '.face'});
         console.log(cube)
         console.log(cube.size())
+        $('.cubist-cube').css({
+            transform: 'translateZ(0) rotateX(-30deg) rotateY(125deg) scale(0.5, 0.5)'
+        })
         //cube.show(1)
     }());
 </script>

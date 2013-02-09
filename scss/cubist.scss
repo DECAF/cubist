@@ -1,19 +1,81 @@
-@import "compass/css3";
+@import 'compass/css3';
+@import 'mixins';
+@import 'images';
 
-* {
-  //@include box-sizing(border-box);
-}
+$cube-depth : 100px;
 
-html,
-body {
-  height: 100%;
-  overflow : hidden;
-  font-family: 'Source Sans Pro', sans-serif;
+.cubist-stage {
+  @include perspective(0);
 }
 
 .cubist-cube {
-  width: 100%;
-  height: 100%;      
+  height  : 100%;
+  @include transform-style(preserve-3d);
+  @include transition(transform 5s);
+  width   : 100%;
+  z-index : 3;
 }
 
-.cubist-cube .
+.cubist-cube .cubist-face {
+  display    : block;
+  position   : absolute;
+  text-align : center;
+}
+
+// Face backgrounds
+
+.cubist-cube .cubist-face-top,
+.cubist-cube .cubist-face-bottom,
+.cubist-cube .cubist-face-left,
+.cubist-cube .cubist-face-right {
+  background : white url($carbon-fibre) repeat center;
+  @include image-2x($carbon-fibre2x, 46px, 29px);
+}
+
+// Face sizes
+
+.cubist-cube .cubist-face-front,
+.cubist-cube .cubist-face-back {
+  height : 100%;
+  width  : 100%;
+}
+
+.cubist-cube .cubist-face-left,
+.cubist-cube .cubist-face-right {
+  height : 100%;
+  width  : $cube-depth;
+}
+
+.cubist-cube .cubist-face-top,
+.cubist-cube .cubist-face-bottom {
+  width  : 100%;
+  height : $cube-depth;
+}
+
+// Face transforms
+
+.cubist-cube .cubist-face-front {
+  @include transform(rotateY(0deg) translateZ($cube-depth / 2));
+}
+
+.cubist-cube .cubist-face-back {
+  @include transform(rotateX(180deg) translateZ($cube-depth / 2));
+}
+
+.cubist-cube .cubist-face-top {
+  @include transform(rotateX(90deg) translateZ($cube-depth / 2));
+}
+
+.cubist-cube .cubist-face-left {
+  @include transform(rotateY(-90deg) translateZ($cube-depth / 2));
+}
+
+.cubist-cube .cubist-face-right {
+  // right face transformed with javascript
+}
+
+.cubist-cube .cubist-face-bottom {
+  // right face transformed with javascript
+}
+
+
