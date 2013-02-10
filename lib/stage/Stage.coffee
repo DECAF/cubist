@@ -53,10 +53,9 @@ class Stage
 
   _resizeFaces : ->
     depth = @_$rightFace.width() / 2
-    sidesDepth = @_stageWidth - depth
     @_animator.positionRear @_$backFace, depth
-    @_animator.positionRight @_$rightFace, sidesDepth
-    @_animator.positionBottom @_$bottomFace, sidesDepth
+    @_animator.positionRight @_$rightFace, @_stageWidth - depth
+    @_animator.positionBottom @_$bottomFace, @_stageHeight - depth
 
   _setStagePerspective : ->
     perspective = @_stageWidth * 60 / 100
