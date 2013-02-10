@@ -11,6 +11,8 @@
             font-family : sans-serif;
             height      : 100%;
             overflow    : hidden;
+            margin: 0;
+            padding: 0;
         }
 
         #cubist {
@@ -63,13 +65,13 @@
     </section>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript">                                                                                     
     (function () {
-        var cube = new Cubist(document.getElementById('cubist'), {faceSelector : '.face'});
+        var cube = new Cubist(document.getElementById('cubist'), {pageSelector : '.face',isRotatedVertically:false});
         console.log(cube)
         console.log(cube.size())
         $('.cubist-cube').css({
-            transform: 'translateZ(0) rotateX(-30deg) rotateY(125deg) scale(0.5, 0.5)'
+            transform: 'translateZ(0) rotateX(-12deg) rotateY(-135deg) scale(0.5, 0.5)'
         })
         //cube.show(1)
     }());

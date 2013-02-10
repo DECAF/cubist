@@ -2,7 +2,7 @@
 @import 'mixins';
 @import 'images';
 
-$cube-depth : 100px;
+$cube-depth : 70px;
 
 .cubist-stage {
   @include perspective(0);
@@ -76,6 +76,7 @@ $cube-depth : 100px;
 
 .cubist-cube .cubist-face-bottom {
   // right face transformed with javascript
+  @include box-shadow(0 0 150px 5px rgba(0,0,0,0.8));
 }
 
 

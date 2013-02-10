@@ -1,23 +1,35 @@
+CubistOptions = require '../config/CubistOptions'
+Rotation = require './Rotation'
+Animator = require './Animator'
 cubeHtml = require "../cube/html/cubeSides"
-helper   = require '../util/helper'
-$window  = $ window
+helper = require '../util/helper'
+VendorTranslator = require '../util/VendorCssTranslator'
+$window = $ window
 
 class Stage
-  _stage        : null
-  _cubeEl       : null
+  _stage       : null
+  _options     : null
+  _cubeEl      : null
   _$rightFace  : null
   _$bottomFace : null
-  _stageWidth   : 0
-  _stageHeight  : 0
+  _$backFace   : null
+  _animator    : null
+  _stageWidth  : 0
+  _stageHeight : 0
 
-  constructor : (@_stage, stageClass, cubeClass) ->
-    helper.addClass @_stage, stageClass
+  constructor : (@_stage, @_options) ->
+    helper.addClass @_stage, @_options.get(CubistOptions.CSS_CLASS_STAGE)
+
     @_cubeEl = document.createElement 'div'
-    @_cubeEl.className = cubeClass
+    @_cubeEl.className = @_options.get(CubistOptions.CSS_CLASS_CUBE)
     @_cubeEl.innerHTML = cubeHtml
     @_$rightFace = $ @_cubeEl.querySelector('.cubist-face-right')
     @_$bottomFace = $ @_cubeEl.querySelector('.cubist-face-bottom')
+    @_$backFace = $ @_cubeEl.querySelector('.cubist-face-back')
     @_stage.appendChild @_cubeEl
+
+    @_animator = new Animator @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
+
 
     @_bindEvents()
     @_draw()
@@ -29,40 +41,39 @@ class Stage
   _onResize : ->
     # rechts und unten berechnen
     @_draw()
-    
-  _draw: ->
+
+  _draw : ->
     @_calculateSizes()
     @_resizeFaces()
     @_setStagePerspective()
-    
+
   _calculateSizes : ->
     @_stageWidth = @_stage.offsetWidth
     @_stageHeight = @_stage.offsetHeight
 
   _resizeFaces : ->
     depth = @_$rightFace.width() / 2
-    @_$rightFace.css
-      transform: "rotateY(90deg) translateZ(#{@_stageWidth - depth}px)"
-    @_$bottomFace.css
-      transform: "rotateX(-90deg) translateZ(#{@_stageHeight - depth}px)"
-  
+    sidesDepth = @_stageWidth - depth
+    @_animator.positionRear @_$backFace, depth
+    @_animator.positionRight @_$rightFace, sidesDepth
+    @_animator.positionBottom @_$bottomFace, sidesDepth
+
   _setStagePerspective : ->
-    perspective = if yes then "#{@_stageWidth * 60 / 100}px" else "0"
-    @_stage.style.webkitPerspective = perspective 
-    
-    ###
-      '-webkit-perspective' : perspective
-      '-moz-perspective'    : perspective
-      '-ms-perspective'     : perspective
-      '-o-perspective'      : perspective
-      'perspective'         : perspective
-    ###  
+    perspective = @_stageWidth * 60 / 100
+    VendorTranslator.setStyle @_stage, 'perspective', perspective
+  #if yes then "#{@_stageWidth * 60 / 100}px" else "0"
+
   getCubeEl : ->
     @_cubeEl
 
   getPages : (selector) ->
     @_stage.querySelectorAll selector
 
-  
+  rotateForward : ->
+    rotate = @_rotation.getNextRotationFn()
+
+  rotateBackward : ->
+    rotate = @_rotation.getPrevRotationFn()
+
 
 module.exports = Stage

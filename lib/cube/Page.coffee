@@ -1,15 +1,30 @@
+helper = require '../util/helper'
+
 class Page
-  el : null
+  _el    : null
+  _index : null
+  _isEven : null
+  
+  constructor : (@_el) ->
 
-  constructor : (@el) ->
+  setIndex    : (@_index) ->
+    @_isEven = @_index % 2 is 0
+    console.log 'setting index to ', @_index, @_index % 2, @_isEven
+    helper.addClass @_el, "face-#{@_index}"
+
+  show : ->
+    @_el.style.display = 'block'
+  
+  hide:  ->
+    @_el.style.display = 'none'
     
-  show: (targetEl) ->
+  appendTo : (targetEl) ->
     @_movePage targetEl
 
-  hide: (targetEl) ->
-    @_movePage targetEl
-
-  _movePage: (targetEl) ->
-    targetEl.appendChild @el
+  isEven : ->
+    @_isEven
     
+  _movePage : (targetEl) ->
+    targetEl.appendChild @_el
+
 module.exports = Page

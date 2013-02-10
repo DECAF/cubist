@@ -20,25 +20,23 @@ class ContentController
   _addPage      : (pageEl) ->
     page = new Page pageEl
     @_pages.push page
-    @_hidePage @size() - 1
     
-  showFrontPage : (index, callback) ->
-    @_gotoPage index, @_frontSideEl unless index is @_current
-
-  showBackPage : (index, callback) ->
-    @_gotoPage index, @_backSideEl unless index is @_current
+    page.setIndex @size() - 1
+    page.appendTo if page.isEven() then @_frontSideEl else @_backSideEl  
+    page.hide()
+    
+  showPage: (index) ->
+    page = @_pages[index]
+    page.show() unless page is undefined
 
   hidePage : (index) ->
-    @_hidePage index
+    @_pages[index]?.hide()
 
   _gotoPage : (index, face) ->
     page = @_pages[index]
     unless page is undefined
       @_current = index
       page.show face
-
-  _hidePage : (index) ->
-    @_pages[index]?.hide @_siding
 
   size : ->
     @_pages.length
