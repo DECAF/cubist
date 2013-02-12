@@ -19,7 +19,7 @@ CubistOptions.IS_ROTATED_VERTICALLY = "isRotatedVertically"
 
 
 CubistOptions.defaults = {}
-CubistOptions.defaults[CubistOptions.PAGE_SELECTOR]        = 'section'
+CubistOptions.defaults[CubistOptions.PAGE_SELECTOR]        = '.page'
 CubistOptions.defaults[CubistOptions.CSS_CLASS_STAGE]      = 'cubist-stage'
 CubistOptions.defaults[CubistOptions.CSS_CLASS_CUBE]       = 'cubist-cube'
 CubistOptions.defaults[CubistOptions.CSS_CLASS_READY]      = 'cubist-ready'

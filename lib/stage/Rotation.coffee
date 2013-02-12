@@ -22,6 +22,11 @@ class Rotation
   getPrevRotationFn : ->
     @_currentRotation - Rotation.FULL_FLIP
 
+  getRotationFn : (times) ->
+    degree = times * Rotation.FULL_FLIP
+    @_getTransformRotation @_selectedRotation, degree
+
+
   _getTransformRotation : (direction, degree)->
     direction.replace Rotation.ROTATE_FN_DEG_PLACEHOLDER, degree
     
@@ -30,7 +35,6 @@ Rotation.FULL_FLIP                 = 180
 Rotation.RIGHT                     = 90
 Rotation.BOTTOM                    = -90
 Rotation.REAR                      = 180
-
 Rotation.ROTATE_FN_DEG_PLACEHOLDER = '{{DEG}}'
 Rotation.ROTATE_X                  = "rotateX(#{Rotation.ROTATE_FN_DEG_PLACEHOLDER}deg)"
 Rotation.ROTATE_Y                  = "rotateY(#{Rotation.ROTATE_FN_DEG_PLACEHOLDER}deg)"

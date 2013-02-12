@@ -1,15 +1,16 @@
 Page = require './Page'
+PageCollection = require './PageCollection'
 
 class ContentController
-  _current     : -1
-  _cube        : null
-  _siding      : null
-  _pages       : null
-  _frontSideEl : null
-  _backSideEl  : null
+  _current        : -1
+  _cube           : null
+  _pageCollection : null
+  _siding         : null
+  _frontSideEl    : null
+  _backSideEl     : null
 
   constructor : (@_cube) ->
-    @_pages = []
+    @_pageCollection = new PageCollection()
     @_siding = document.createElement 'div'
     @_frontSideEl = @_cube.querySelector ".#{ContentController.CSS_CLASS_FRONT}"
     @_backSideEl = @_cube.querySelector ".#{ContentController.CCS_CLASS_BACK}"
@@ -17,20 +18,23 @@ class ContentController
   setPages : (pages) ->
     @_addPage page for page in pages
 
-  _addPage      : (pageEl) ->
+  _addPage : (pageEl) ->
     page = new Page pageEl
-    @_pages.push page
-    
-    page.setIndex @size() - 1
-    page.appendTo if page.isEven() then @_frontSideEl else @_backSideEl  
+    index = @_pageCollection.addItem page
+    page.setIndex index
+    page.appendTo if page.isEven() then @_frontSideEl else @_backSideEl
     page.hide()
-    
-  showPage: (index) ->
-    page = @_pages[index]
-    page.show() unless page is undefined
+
+  showPage : (index) ->
+    page = @_pageCollection.getItem index
+    page.show() unless page is null
 
   hidePage : (index) ->
-    @_pages[index]?.hide()
+    page = @_pageCollection.getItem index
+    page.hide()
+
+  getDistance : (index) ->
+    @_pageCollection.getDistance @_pageCollection.getIndex(), index
 
   _gotoPage : (index, face) ->
     page = @_pages[index]
@@ -39,7 +43,7 @@ class ContentController
       page.show face
 
   size : ->
-    @_pages.length
+    @_pageCollection.size()
 
 ContentController.SIDING_CLASS_APPENDIX = '-siding'
 ContentController.CSS_CLASS_FRONT       = 'cubist-face-front'

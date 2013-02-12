@@ -10,7 +10,7 @@ class Page
   setIndex    : (@_index) ->
     @_isEven = @_index % 2 is 0
     console.log 'setting index to ', @_index, @_index % 2, @_isEven
-    helper.addClass @_el, "face-#{@_index}"
+    helper.addClass @_el, Page.PAGE_ITEM_PREFIX + @_index
 
   show : ->
     @_el.style.display = 'block'
@@ -27,4 +27,5 @@ class Page
   _movePage : (targetEl) ->
     targetEl.appendChild @_el
 
+Page.PAGE_ITEM_PREFIX = 'page-'
 module.exports = Page

@@ -3,19 +3,18 @@ Rotation = require './Rotation'
 Animator = require './Animator'
 cubeHtml = require "../cube/html/cubeSides"
 helper = require '../util/helper'
-VendorTranslator = require '../util/VendorCssTranslator'
 $window = $ window
 
 class Stage
-  _stage       : null
-  _options     : null
-  _cubeEl      : null
-  _$rightFace  : null
-  _$bottomFace : null
-  _$backFace   : null
-  _animator    : null
-  _stageWidth  : 0
-  _stageHeight : 0
+  _stage                   : null
+  _options                 : null
+  _cubeEl                  : null
+  _$rightFace              : null
+  _$bottomFace             : null
+  _$backFace               : null
+  _animator                : null
+  _stageWidth              : 0
+  _stageHeight             : 0
 
   constructor : (@_stage, @_options) ->
     helper.addClass @_stage, @_options.get(CubistOptions.CSS_CLASS_STAGE)
@@ -28,8 +27,7 @@ class Stage
     @_$backFace = $ @_cubeEl.querySelector('.cubist-face-back')
     @_stage.appendChild @_cubeEl
 
-    @_animator = new Animator @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
-
+    @_animator = new Animator @_stage, @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
 
     @_bindEvents()
     @_draw()
@@ -45,7 +43,6 @@ class Stage
   _draw : ->
     @_calculateSizes()
     @_resizeFaces()
-    @_setStagePerspective()
 
   _calculateSizes : ->
     @_stageWidth = @_stage.offsetWidth
@@ -57,22 +54,15 @@ class Stage
     @_animator.positionRight @_$rightFace, @_stageWidth - depth
     @_animator.positionBottom @_$bottomFace, @_stageHeight - depth
 
-  _setStagePerspective : ->
-    perspective = @_stageWidth * 60 / 100
-    VendorTranslator.setStyle @_stage, 'perspective', perspective
-  #if yes then "#{@_stageWidth * 60 / 100}px" else "0"
-
   getCubeEl : ->
     @_cubeEl
 
   getPages : (selector) ->
     @_stage.querySelectorAll selector
 
-  rotateForward : ->
-    rotate = @_rotation.getNextRotationFn()
-
-  rotateBackward : ->
-    rotate = @_rotation.getPrevRotationFn()
+  rotate : (times) ->
+    @_animator.rotateCube times, -(@_$rightFace.width() / 2) 
+  
 
 
 module.exports = Stage

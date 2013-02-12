@@ -15,11 +15,10 @@ class Cube
     @_contentController.setPages pages
 
   show : (index) ->
-    unless index < 0 or index > @getPageCount() - 1
-      @_showPage index
-
-  _showPage : (index, isEven) ->
+    distance = @_contentController.getDistance index
+    console?.log 'rotating ' + distance + ' times'
     @_contentController.showPage index
+    @_stage.rotate distance
 
   getPageCount : ->
     @_contentController.size()

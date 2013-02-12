@@ -15,7 +15,6 @@ class Cubist
     options = new CubeOptions options
     @_cube = CubeFactory.getCube @el, options
     @_cube.show options.get(CubeOptions.START_INDEX)
-    @_cube.show options.get(CubeOptions.START_INDEX) + 1
 
     helper.addClass @el, options.get(CubeOptions.CSS_CLASS_READY)
 
@@ -28,7 +27,8 @@ class Cubist
   end   : ->
 
   jumpTo  : (index) ->
-
+    @_cube.show index
+    
   size  : ->
     @_cube.getPageCount()
 

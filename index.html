@@ -11,69 +11,118 @@
             font-family : sans-serif;
             height      : 100%;
             overflow    : hidden;
-            margin: 0;
-            padding: 0;
+            margin      : 0;
+            padding     : 0;
         }
 
         #cubist {
-            width  : 100%;
-            height : 100%;
-            opacity : 0;
+            position : absolute;
+            top      : 0;
+            left     : 0;
+            bottom   : 40px;
+            width    : 100%;
+
+            opacity  : 0;
         }
+
         #cubist.cubist-ready {
-            opacity: 1;
+            opacity : 1;
         }
 
         .cubist-face-front {
-            background: grey;
+            background : grey;
         }
 
         .cubist-face-back {
-            background: violet;
+            background : violet;
 
         }
 
-        .face {
+        .page {
             padding : 20px;
         }
+
+        #cube-nav {
+            position : absolute;
+            bottom   : 0;
+            left     : 0;
+            width    : 100%;
+        }
+
+        #cube-nav ul {
+            list-style-type : none;
+
+        }
+
+        #cube-nav ul li {
+            float        : left;
+            margin-right : 10px;
+        }
+
+        #cube-nav ul li a {
+            display     : block;
+            color       : black;
+            font-size   : 20px;
+            font-weight : bold;
+        }
+
     </style>
     <script type="text/javascript" src="public/cubist.all.js"></script>
 
 </head>
 <body>
 
-<div id="cubist">
-    <section class="face">
+<div id="cubist" class="cubist-stage">
+    <section class="page">
+        <h2>Page 1</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Facilis magnam maxime non officiis sed sunt totam
             vel vero.Est, ipsam?</p>
     </section>
-    <section class="face">
+    <section class="page">
         <p>Aliquam commodi cupiditate dolorum earum ex facere, harum illo illum iure labore libero nam quae quam, sequi
             soluta voluptas voluptate?</p>
     </section>
-    <section class="face">
+    <section class="page">
         <p>Aliquid debitis eligendi error iste porro quas, repellat totam ut vel veniam.Delectus eius eos illo numquam
             repellendus saepe voluptas.</p>
     </section>
-    <section class="face">
+    <section class="page">
         <p>Debitis dolorum ex facere in ipsam magnam maxime molestiae, odio odit officia perspiciatis quae quam qui,
             quia rerum ut voluptate?</p>
     </section>
-    <section class="face">
+    <section class="page">
         <p>At cumque incidunt molestiae nihil repellendus!Consectetur, eaque eveniet natus officiis tempore
             velit.Accusantium at deserunt est quas ratione recusandae.</p>
     </section>
 </div>
 
-<script type="text/javascript">                                                                                     
+<div id="cube-nav">
+    <ul>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+    </ul>
+</div>
+<script type="text/javascript">
     (function () {
-        var cube = new Cubist(document.getElementById('cubist'), {pageSelector : '.face',isRotatedVertically:false});
+        var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : false});
         console.log(cube)
         console.log(cube.size())
-        $('.cubist-cube').css({
-            transform: 'translateZ(0) rotateX(-12deg) rotateY(-135deg) scale(0.5, 0.5)'
-        })
+        /*$('.cubist-cube').css({
+         transform: 'translateZ(0) rotateX(-12deg) rotateY(-135deg) scale(0.5, 0.5)'
+         })*/
         //cube.show(1)
+        window.setTimeout(function () {
+            //cube.jumpTo(4)
+        }, 1500)
+
+        $('#cube-nav').on('click', 'a', function (e) {
+            e.preventDefault();
+            i = $('#cube-nav').find('a').index(this);
+            cube.jumpTo(i);
+        });
     }());
 </script>
 </body>
