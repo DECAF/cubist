@@ -2,7 +2,7 @@
 @import 'mixins';
 @import 'images';
 
-$cube-depth : 20px;
+$cube-depth : 1200px;
 
 .cubist-stage {
   @include perspective(99999px);
@@ -10,14 +10,17 @@ $cube-depth : 20px;
 }
 
 .cubist-cube {
+  @include backface-visibility(hidden);
   height  : 100%;
+  @include transform-origin(50%);
   @include transform-style(preserve-3d);
-  @include transition(transform 2500ms);
+  @include transition(transform 1000ms);
   width   : 100%;
   z-index : 3;
 }
 
 .cubist-cube .cubist-face {
+  //@include backface-visibility(hidden);
   display    : block;
   position   : absolute;
   text-align : center;
@@ -29,8 +32,8 @@ $cube-depth : 20px;
 .cubist-cube .cubist-face-bottom,
 .cubist-cube .cubist-face-left,
 .cubist-cube .cubist-face-right {
-  background : white url($carbon-fibre) repeat center;
-  @include image-2x($carbon-fibre2x, 46px, 29px);
+  background : white url($cube-sides) repeat center;
+  @include image-2x($cube-sides2x, 46px, 29px);
 }
 
 // Face sizes
@@ -50,7 +53,7 @@ $cube-depth : 20px;
 .cubist-cube .cubist-face-top,
 .cubist-cube .cubist-face-bottom {
   width  : 100%;
-  height : $cube-depth;
+  height : 100%;
 }
 
 // Face transforms

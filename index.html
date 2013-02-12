@@ -79,21 +79,21 @@
             vel vero.Est, ipsam?</p>
     </section>
     <section class="page">
+        <h2>Page 2</h2>
         <p>Aliquam commodi cupiditate dolorum earum ex facere, harum illo illum iure labore libero nam quae quam, sequi
             soluta voluptas voluptate?</p>
     </section>
     <section class="page">
+        <h2>Page 3</h2>
         <p>Aliquid debitis eligendi error iste porro quas, repellat totam ut vel veniam.Delectus eius eos illo numquam
             repellendus saepe voluptas.</p>
     </section>
     <section class="page">
+        <h2>Page 4</h2>
         <p>Debitis dolorum ex facere in ipsam magnam maxime molestiae, odio odit officia perspiciatis quae quam qui,
             quia rerum ut voluptate?</p>
     </section>
-    <section class="page">
-        <p>At cumque incidunt molestiae nihil repellendus!Consectetur, eaque eveniet natus officiis tempore
-            velit.Accusantium at deserunt est quas ratione recusandae.</p>
-    </section>
+    
 </div>
 
 <div id="cube-nav">
@@ -102,17 +102,16 @@
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
     </ul>
 </div>
 <script type="text/javascript">
     (function () {
-        var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : false});
+        var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : true});
         console.log(cube)
         console.log(cube.size())
-        /*$('.cubist-cube').css({
-         transform: 'translateZ(0) rotateX(-12deg) rotateY(-135deg) scale(0.5, 0.5)'
-         })*/
+        $('.cubist-cube').css({
+         transform: 'translateZ(0) rotateX(10deg) rotateY(10deg) scale(0.5, 0.5)'
+         })
         //cube.show(1)
         window.setTimeout(function () {
             //cube.jumpTo(4)

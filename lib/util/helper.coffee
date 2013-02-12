@@ -32,7 +32,7 @@ module.exports =
     a isnt null and typeof a is OBJECT and not module.exports.isArray(a)
   # check, if a is a `number`
   isNumber      : (a) ->
-    typeof a is NUMBER
+    typeof a is NUMBER and not isNaN(a)     
   # check, if a is a `String`
   isString      : (a) ->
     typeof a is STRING

@@ -1,8 +1,11 @@
-CubistOptions = require '../config/CubistOptions'
-Rotation = require './Rotation'
-Animator = require './Animator'
-cubeHtml = require "../cube/html/cubeSides"
-helper = require '../util/helper'
+CubistOptions    = require '../config/CubistOptions'
+Rotation         = require './Rotation'
+Animator         = require './Animator'
+Index            = require './Index'
+Sides            = require './Sides'
+cubeHtml         = require "../cube/html/cubeSides"
+helper           = require '../util/helper'
+
 $window = $ window
 
 class Stage
@@ -13,10 +16,13 @@ class Stage
   _$bottomFace             : null
   _$backFace               : null
   _animator                : null
+  _index                   : null
   _stageWidth              : 0
   _stageHeight             : 0
+  
 
   constructor : (@_stage, @_options) ->
+    #isHorizontal
     helper.addClass @_stage, @_options.get(CubistOptions.CSS_CLASS_STAGE)
 
     @_cubeEl = document.createElement 'div'
@@ -28,7 +34,7 @@ class Stage
     @_stage.appendChild @_cubeEl
 
     @_animator = new Animator @_stage, @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
-
+    @_index = new Index()
     @_bindEvents()
     @_draw()
 
@@ -57,12 +63,27 @@ class Stage
   getCubeEl : ->
     @_cubeEl
 
-  getPages : (selector) ->
-    @_stage.querySelectorAll selector
+  getSideElements: ->
+     
+    
+  addPages : (selector) ->
+    pageElements = @_stage.querySelectorAll selector
+    
 
-  rotate : (times) ->
-    @_animator.rotateCube times, -(@_$rightFace.width() / 2) 
+    sides = new Sides @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
+    sides.addPages pageElements
+    
+  rotateTo : (index) ->
+    distance = @_index.getDistance index
+    
+    unless distance is Stage.NO_DISTANCE
+      @_index.setIndex index
+      console.log "rotating #{distance} times to index #{index}" 
+      @_animator.rotateCube distance, -(@_stageHeight / 2) 
   
 
+Stage.NO_DISTANCE          = 0
+Stage.CSS_CLASS_HORIZONTAL = 'cubist-stage-horizontal'
+Stage.CSS_CLASS_VERTICAL   = 'cubist-stage-vertical' 
 
 module.exports = Stage

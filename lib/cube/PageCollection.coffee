@@ -12,21 +12,17 @@ class PageCollection
     @_items.length - 1
 
   getItem: (index) ->
-    if @_items[index] is undefined then null else @_items[index]
+    item = @_items[index]
+    if item isnt undefined then @_items[index] else null
     
   isInRange : (index) ->
     @getItem(index) isnt null
 
-  setIndex : (index) ->
-    @_current = index if @isInRange index
-    @_current
-
-  getIndex : ->
-    @_current
-    
-  getDistance: (from, to) ->
-    throw new CubistException 'the distance requested does not exists.' if not @isInRange to
-    to - from
+  showItem: (index) ->
+    if @isInRange index
+      @getItem(@_current).hide()
+      @_current = index
+      @getItem(@_current).show()
     
   size : ->
     @_items.length

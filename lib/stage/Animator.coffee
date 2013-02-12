@@ -6,7 +6,7 @@ class Animator
   _$cube                   : null
   _rotation                : null
   _stageDefaultPerspective : null
-
+  onBeforeSideReveal       : null
 
   constructor : (@_stage, cubeEl, isRotatedVertically) ->
     @_$cube = $ cubeEl
@@ -30,15 +30,38 @@ class Animator
   rotateCube : (times, depth) ->
     cssDuration = VendorTranslator.getCurrentStyle @_$cube[0], 'transition-duration'
     duration = if cssDuration.indexOf("ms") > -1 then parseFloat(cssDuration) else parseFloat(cssDuration) * 1000
+    partialDuration = duration / 2
+    
+    partialSteps = duration / times
+    
+    firstHalf = @_rotation.getRotationFn(times / 2)
+    secondHalf = @_rotation.getRotationFn(times / 2)
 
+    
     console.log "duration for rotation: #{duration}ms"
-    @_setStagePerspective yes
-    @_$cube.css
-      transform : @_getRotationTransformation @_rotation.getRotationFn(times), depth
-    window.setTimeout(=>
-      @_setStagePerspective no
-    , duration)
+    console.log "first, rotating to #{firstHalf} and then to #{secondHalf}"
 
+    @_setStagePerspective yes
+    @_$cube.transition
+      transform : @_getRotationTransformation(firstHalf, 0) + " scale3d(0.7,0.7,1)"
+    , partialDuration, Animator.ROTATE_EASING_START, =>
+        console.log "now going second half", secondHalf
+        @_$cube.transition
+          transform : @_getRotationTransformation(secondHalf, 0) + " scale3d(1,1,1)"
+        , partialDuration, Animator.ROTATE_EASING_END, =>
+            @_setStagePerspective no
+
+    # will rotate <times> times
+    # duration per turn is <duration/times>
+    # will call callback when a single rotation is half way through
+    
+    stepsCounted = 0
+    ###eventInterval = window.setInterval =>
+      console.log "on page revealed"
+      stepsCounted += 1
+      clearInterval(eventInterval) if stepsCounted is times
+    , partialSteps ###
+  
   _getRotationTransformation : (rotateFn, depth)->
     "#{rotateFn} translateZ(#{depth}px)"
 
@@ -51,5 +74,8 @@ class Animator
     VendorTranslator.setStyle @_stage, 'perspective', perspective
 
   transit : () ->
+
+Animator.ROTATE_EASING_START = 'easeInQuad'
+Animator.ROTATE_EASING_END   = 'easeOutQuad'
 
 module.exports = Animator

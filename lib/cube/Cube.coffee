@@ -1,6 +1,6 @@
-Stage = require '../stage/Stage'
+Stage             = require '../stage/Stage'
 ContentController = require './ContentController'
-CubistOptions = require './../config/CubistOptions'
+CubistOptions     = require './../config/CubistOptions'
 
 class Cube
   _contentController : null
@@ -8,20 +8,19 @@ class Cube
 
   constructor : (el, options) ->
     @_stage = new Stage el, options
+    @_stage.addPages options.get(CubistOptions.PAGE_SELECTOR)
     cubeEl = @_stage.getCubeEl()
-    pages = @_stage.getPages options.get(CubistOptions.PAGE_SELECTOR)
+    #sides = @_stage.getSides()
+    #pages = 
 
     @_contentController = new ContentController cubeEl
-    @_contentController.setPages pages
+    #@_contentController.setPages pages
 
   show : (index) ->
-    distance = @_contentController.getDistance index
-    console?.log 'rotating ' + distance + ' times'
     @_contentController.showPage index
-    @_stage.rotate distance
+    @_stage.rotateTo index
 
   getPageCount : ->
     @_contentController.size()
-
 
 module.exports = Cube

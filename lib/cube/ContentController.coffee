@@ -6,8 +6,8 @@ class ContentController
   _cube           : null
   _pageCollection : null
   _siding         : null
-  _frontSideEl    : null
-  _backSideEl     : null
+  _frontSideEl : null
+  _backSideEl  : null
 
   constructor : (@_cube) ->
     @_pageCollection = new PageCollection()
@@ -26,8 +26,7 @@ class ContentController
     page.hide()
 
   showPage : (index) ->
-    page = @_pageCollection.getItem index
-    page.show() unless page is null
+    @_pageCollection.showItem index
 
   hidePage : (index) ->
     page = @_pageCollection.getItem index
@@ -35,12 +34,6 @@ class ContentController
 
   getDistance : (index) ->
     @_pageCollection.getDistance @_pageCollection.getIndex(), index
-
-  _gotoPage : (index, face) ->
-    page = @_pages[index]
-    unless page is undefined
-      @_current = index
-      page.show face
 
   size : ->
     @_pageCollection.size()

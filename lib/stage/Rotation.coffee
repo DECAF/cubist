@@ -1,3 +1,5 @@
+helper = require '../util/helper'
+
 class Rotation
   _isVertical       : null
   _selectedRotation : null
@@ -21,17 +23,21 @@ class Rotation
 
   getPrevRotationFn : ->
     @_currentRotation - Rotation.FULL_FLIP
-
+    
+  getCurrentRotationFn: ->
+    @_getTransformRotation @_selectedRotation, @_currentRotation    
+    
   getRotationFn : (times) ->
-    degree = times * Rotation.FULL_FLIP
-    @_getTransformRotation @_selectedRotation, degree
+    if helper.isNumber times
+      @_currentRotation = times * Rotation.FULL_FLIP + @_currentRotation
+      @getCurrentRotationFn()
 
 
   _getTransformRotation : (direction, degree)->
     direction.replace Rotation.ROTATE_FN_DEG_PLACEHOLDER, degree
     
-Rotation.HALF_FLIP                 = 90
-Rotation.FULL_FLIP                 = 180
+Rotation.HALF_FLIP                 = -90
+Rotation.FULL_FLIP                 = -180
 Rotation.RIGHT                     = 90
 Rotation.BOTTOM                    = -90
 Rotation.REAR                      = 180
