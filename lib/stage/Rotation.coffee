@@ -36,8 +36,7 @@ class Rotation
   _getTransformRotation : (direction, degree)->
     direction.replace Rotation.ROTATE_FN_DEG_PLACEHOLDER, degree
     
-Rotation.HALF_FLIP                 = -90
-Rotation.FULL_FLIP                 = -180
+Rotation.FULL_FLIP                 = -90
 Rotation.RIGHT                     = 90
 Rotation.BOTTOM                    = -90
 Rotation.REAR                      = 180

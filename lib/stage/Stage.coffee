@@ -12,29 +12,29 @@ class Stage
   _stage                   : null
   _options                 : null
   _cubeEl                  : null
-  _$rightFace              : null
-  _$bottomFace             : null
-  _$backFace               : null
   _animator                : null
   _index                   : null
+  _sides                   : null
   _stageWidth              : 0
   _stageHeight             : 0
   
 
   constructor : (@_stage, @_options) ->
-    #isHorizontal
+    isVertical = @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
+    orientationClass = if isVertical then Stage.CSS_CLASS_VERTICAL else Stage.CSS_CLASS_HORIZONTAL
+      
     helper.addClass @_stage, @_options.get(CubistOptions.CSS_CLASS_STAGE)
+    helper.addClass @_stage, orientationClass 
 
     @_cubeEl = document.createElement 'div'
     @_cubeEl.className = @_options.get(CubistOptions.CSS_CLASS_CUBE)
     @_cubeEl.innerHTML = cubeHtml
-    @_$rightFace = $ @_cubeEl.querySelector('.cubist-face-right')
-    @_$bottomFace = $ @_cubeEl.querySelector('.cubist-face-bottom')
-    @_$backFace = $ @_cubeEl.querySelector('.cubist-face-back')
     @_stage.appendChild @_cubeEl
 
-    @_animator = new Animator @_stage, @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
+    @_animator = new Animator @_stage, @_cubeEl, isVertical
     @_index = new Index()
+    @_sides = new Sides @_cubeEl, isVertical
+    
     @_bindEvents()
     @_draw()
 
@@ -55,10 +55,8 @@ class Stage
     @_stageHeight = @_stage.offsetHeight
 
   _resizeFaces : ->
-    depth = @_$rightFace.width() / 2
-    @_animator.positionRear @_$backFace, depth
-    @_animator.positionRight @_$rightFace, @_stageWidth - depth
-    @_animator.positionBottom @_$bottomFace, @_stageHeight - depth
+    @_animator.resizeCube(@_stageWidth, @_stageHeight)
+    @_sides.resizeSides(@_stageWidth, @_stageHeight)
 
   getCubeEl : ->
     @_cubeEl
@@ -70,20 +68,21 @@ class Stage
     pageElements = @_stage.querySelectorAll selector
     
 
-    sides = new Sides @_cubeEl, @_options.get(CubistOptions.IS_ROTATED_VERTICALLY)
-    sides.addPages pageElements
+    
+    @_sides.addPages pageElements
     
   rotateTo : (index) ->
+    throw new CubistException "index #{index} not possible" if index < 0 or index > Sides.MAX_PAGES
     distance = @_index.getDistance index
     
     unless distance is Stage.NO_DISTANCE
       @_index.setIndex index
       console.log "rotating #{distance} times to index #{index}" 
-      @_animator.rotateCube distance, -(@_stageHeight / 2) 
+      @_animator.rotateCube distance
   
 
 Stage.NO_DISTANCE          = 0
-Stage.CSS_CLASS_HORIZONTAL = 'cubist-stage-horizontal'
-Stage.CSS_CLASS_VERTICAL   = 'cubist-stage-vertical' 
+Stage.CSS_CLASS_HORIZONTAL = 'cubist-horizontal'
+Stage.CSS_CLASS_VERTICAL   = 'cubist-vertical' 
 
 module.exports = Stage

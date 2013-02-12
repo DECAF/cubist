@@ -5,8 +5,8 @@ var COFFEE_SRC = 'lib';
 var COFFEE_TARGET = 'src';
 var BUILD_TARGET = 'public';
 
-var BUILD_PATH     = path.join(__dirname, BUILD_TARGET);
-var BUILD_FILE     = path.join(BUILD_PATH, APP_FILE + '.js');
+var BUILD_PATH = path.join(__dirname, BUILD_TARGET);
+var BUILD_FILE = path.join(BUILD_PATH, APP_FILE + '.js');
 var BUILD_MIN_FILE = path.join(__dirname, BUILD_TARGET, APP_FILE + '.min.js')
 var uglifyOptions = {
     mini : {
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
         watch   : {
             coffee  : {
                 files : COFFEE_SRC + '/**/*',
-                tasks : ['default']
+                tasks : ['scripts']
             },
             compass : {
                 files : [ 'scss/**/*' ],
@@ -116,13 +116,13 @@ module.exports = function (grunt) {
             options : {
                 separator : ';'
             },
-            min    : {
-                src  : ['vendor/jquery-1.9.1.min.js','vendor/jquery.transit.min.js',BUILD_MIN_FILE],
-                dest : path.join(BUILD_PATH,APP_FILE + '.all.min.js')
+            min     : {
+                src  : ['vendor/jquery-1.9.1.min.js', 'vendor/jquery.transit.min.js', BUILD_MIN_FILE],
+                dest : path.join(BUILD_PATH, APP_FILE + '.all.min.js')
             },
-            normal    : {
-                src  : ['vendor/jquery-1.9.1.min.js','vendor/jquery.transit.min.js',BUILD_FILE],
-                dest : path.join(BUILD_PATH,APP_FILE + '.all.js')
+            normal  : {
+                src  : ['vendor/jquery-1.9.1.min.js', 'vendor/jquery.transit.min.js', BUILD_FILE],
+                dest : path.join(BUILD_PATH, APP_FILE + '.all.js')
             }
         }
 
@@ -136,8 +136,9 @@ module.exports = function (grunt) {
 
 
     // Default task.
-    grunt.registerTask('default', ['coffee', 'webmake', 'uglify','concat']);
-
+    grunt.registerTask('scripts', ['coffee', 'webmake', 'uglify', 'concat']);
+    grunt.registerTask('default', ['scripts', 'compass']);
+        
 
     grunt.registerTask('webmake', 'stitching commonjs modules for the client.', function () {
         var webmake = require('webmake');

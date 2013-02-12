@@ -21,21 +21,39 @@
             left     : 0;
             bottom   : 40px;
             width    : 100%;
-
             opacity  : 0;
+            box-sizing: border-box;
+           /* 
+            width: 600px;
+            height: 400px;
+            bottom: auto;
+            left: 50%;
+            top: 50%;
+            margin-top: -200px;
+            margin-left: -300px;*/
         }
 
         #cubist.cubist-ready {
             opacity : 1;
         }
 
-        .cubist-face-front {
-            background : grey;
+        #cubist .cubist-face-front {
+            background : #ccc;
         }
-
-        .cubist-face-back {
-            background : violet;
-
+        #cubist .cubist-face-top {
+            background : #eee;
+        }
+        #cubist .cubist-face-back {
+            background : #ddd;
+        }
+        #cubist .cubist-face-bottom {
+            background : #bbb;
+        }
+        #cubist .cubist-face-left {
+            background : #dddeee;
+        }
+        #cubist .cubist-face-right {
+            background : #bbbddd;
         }
 
         .page {
@@ -75,25 +93,29 @@
 <div id="cubist" class="cubist-stage">
     <section class="page">
         <h2>Page 1</h2>
+
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Facilis magnam maxime non officiis sed sunt totam
             vel vero.Est, ipsam?</p>
     </section>
     <section class="page">
         <h2>Page 2</h2>
+
         <p>Aliquam commodi cupiditate dolorum earum ex facere, harum illo illum iure labore libero nam quae quam, sequi
             soluta voluptas voluptate?</p>
     </section>
     <section class="page">
         <h2>Page 3</h2>
+
         <p>Aliquid debitis eligendi error iste porro quas, repellat totam ut vel veniam.Delectus eius eos illo numquam
             repellendus saepe voluptas.</p>
     </section>
     <section class="page">
         <h2>Page 4</h2>
+
         <p>Debitis dolorum ex facere in ipsam magnam maxime molestiae, odio odit officia perspiciatis quae quam qui,
             quia rerum ut voluptate?</p>
     </section>
-    
+
 </div>
 
 <div id="cube-nav">
@@ -106,12 +128,10 @@
 </div>
 <script type="text/javascript">
     (function () {
-        var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : true});
-        console.log(cube)
-        console.log(cube.size())
-        $('.cubist-cube').css({
-         transform: 'translateZ(0) rotateX(10deg) rotateY(10deg) scale(0.5, 0.5)'
-         })
+        var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : false});
+        /*$('.cubist-cube').css({
+            transform : 'translateZ(0px) rotateX(20deg) rotateY(-40deg)  scale3d(0.6, 0.6, 0.6)'
+        })*/
         //cube.show(1)
         window.setTimeout(function () {
             //cube.jumpTo(4)

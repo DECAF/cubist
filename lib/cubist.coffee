@@ -11,13 +11,17 @@ class Cubist
 
   constructor : (@el, options = {}) ->
     throw new Error 'el has to be a dom element.' if typeof @el.getElementsByClassName isnt 'function'
-
-    options = new CubeOptions options
-    @_cube = CubeFactory.getCube @el, options
-    @_cube.show options.get(CubeOptions.START_INDEX)
-
-    helper.addClass @el, options.get(CubeOptions.CSS_CLASS_READY)
-
+    
+    if FeatureCheck.is3dCapable()
+  
+      options = new CubeOptions options
+      @_cube = CubeFactory.getCube @el, options
+      @_cube.show options.get(CubeOptions.START_INDEX)
+  
+      helper.addClass @el, options.get(CubeOptions.CSS_CLASS_READY)
+    else
+      helper.addClass @el, options.get(CubeOptions.CSS_CLASS_NO_3D)
+      
   next  : ->
 
   prev  : ->
@@ -29,10 +33,6 @@ class Cubist
   jumpTo  : (index) ->
     @_cube.show index
     
-  size  : ->
-    @_cube.getPageCount()
-
-
 FeatureCheck.check()
     
 window.Cubist = Cubist

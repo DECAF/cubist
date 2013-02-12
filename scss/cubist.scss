@@ -1,29 +1,43 @@
 @import 'compass/css3';
 @import 'mixins';
-@import 'images';
 
-$cube-depth : 1200px;
+$cube-depth : 250px;
+
+$rotation-duration : 1200ms;
+$rotate-easing-fn : cubic-bezier(0.230, 1.000, 0.320, 1.000);
+$ready-easing-fn: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 
 .cubist-stage {
-  @include perspective(99999px);
-  @include transition(all 350ms);
+  opacity : 0;
+  @include perspective(1200px);
+  @include perspective-origin(50% 50%);
+  @include transition(opacity 500ms $ready-easing-fn);
+}
+
+.cubist-stage.cubist-stage-ready {
+  opacity : 1;
 }
 
 .cubist-cube {
-  @include backface-visibility(hidden);
   height  : 100%;
   @include transform-origin(50%);
   @include transform-style(preserve-3d);
-  @include transition(transform 1000ms);
   width   : 100%;
   z-index : 3;
 }
 
+.cubist-cube.cubist-cube-transitioned {
+  @include transition(transform $rotation-duration);
+  @include transition-timing-function($rotate-easing-fn);
+}
+
 .cubist-cube .cubist-face {
   //@include backface-visibility(hidden);
+  @include box-sizing(border-box);
   display    : block;
   position   : absolute;
   text-align : center;
+  border     : 2px solid #333;
 }
 
 // Face backgrounds
@@ -32,8 +46,7 @@ $cube-depth : 1200px;
 .cubist-cube .cubist-face-bottom,
 .cubist-cube .cubist-face-left,
 .cubist-cube .cubist-face-right {
-  background : white url($cube-sides) repeat center;
-  @include image-2x($cube-sides2x, 46px, 29px);
+  background : white;
 }
 
 // Face sizes
@@ -47,13 +60,31 @@ $cube-depth : 1200px;
 .cubist-cube .cubist-face-left,
 .cubist-cube .cubist-face-right {
   height : 100%;
-  width  : $cube-depth;
 }
 
-.cubist-cube .cubist-face-top,
-.cubist-cube .cubist-face-bottom {
+// cubist-vertical
+
+.cubist-vertical .cubist-cube .cubist-face-left,
+.cubist-vertical .cubist-cube .cubist-face-right {
+  height : 100%;
+}
+
+.cubist-vertical .cubist-cube .cubist-face-top,
+.cubist-vertical .cubist-cube .cubist-face-bottom {
   width  : 100%;
   height : 100%;
+}
+
+// cubist-horizontal
+.cubist-horizontal .cubist-cube .cubist-face-left,
+.cubist-horizontal .cubist-cube .cubist-face-right {
+  height : 100%;
+  width: 100%;
+}
+
+.cubist-horizontal .cubist-cube .cubist-face-top,
+.cubist-horizontal .cubist-cube .cubist-face-bottom {
+  width  : 100%;
 }
 
 // Face transforms
@@ -75,7 +106,7 @@ $cube-depth : 1200px;
 }
 
 .cubist-cube .cubist-face-right {
-  // right face transformed with javascript
+  @include transform(rotateY(90deg) translateZ($cube-depth / 2));
 }
 
 .cubist-cube .cubist-face-bottom {
