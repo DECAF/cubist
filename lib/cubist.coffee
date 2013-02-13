@@ -41,8 +41,8 @@ class Cubist
     
 window.Cubist = Cubist
 if typeof window.define is "function" && window.define.amd
-  window.define "cubist", ['jquery'], ->
+  define "Cubist", ['jquery'], ->
     FeatureCheck.check()
-    window.Cubist
+    Cubist
 else
   FeatureCheck.check()
