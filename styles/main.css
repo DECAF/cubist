@@ -83,7 +83,7 @@ body {
     left       : 0;
     width      : 100%;
     text-align : center;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.9);
 }
 #cube-nav h1 {
     font-size: 14px;
