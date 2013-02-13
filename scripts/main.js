@@ -1,4 +1,4 @@
-(function () {
+$(function () {
     var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : false});
 
     $('#cube-nav').on('click', 'ul li a', function (e) {
