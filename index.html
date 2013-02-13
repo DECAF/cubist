@@ -5,39 +5,98 @@
     <link rel="stylesheet" href="styles/normalize.css"/>
     <link rel="stylesheet" href="styles/cubist.css"/>
     <link rel="stylesheet" href="styles/main.css"/>
+    <link rel="stylesheet" href="styles/prism.css"/>
 </head>
 <body>
 
 <div id="cubist" class="cubist-stage">
     <section class="page">
-        <iframe src="http://twitter.github.com/bootstrap/" frameborder="0"></iframe>
+        <div>
+            <h1>cubist<span>.js</span></h1>
+
+            <p>your content on a cube</p>
+
+            <p>&nbsp;</p>
+
+            <p>&nbsp;</p>
+        </div>
     </section>
     <section class="page">
-        <iframe src="http://compass-style.org/" frameborder="0"></iframe>
+        <div>
+            <h2>Get started</h2>
+            <ul>
+                <li>download
+                    <mark>cubist.js</mark>
+                    from <a href="https://github.com/DECAF/cubist/">here</a></li>
+                <li>include <code>cubist.min.js</code>  
+                    <ul>
+                        <li>with a good old <code class="language-markup">&lt;script/&gt;</code> element</li>
+                        <li>or <code class="language-javascript">require('cubist')</code> with a javascript 
+                            module you like</li>
+                    </ul>
+                </li>
+                <li>include <code>cubist.css</code> in your HTML</li>
+            </ul>
+        </div>
     </section>
     <section class="page">
-        <iframe src="http://yeoman.io" frameborder="0"></iframe>
+        <div>
+            <h2>Create</h2>
+
+            <p>some cubist html with a maximum of 4 pages</p>
+            <pre><code class="language-markup">&lt;div id=&quot;cubist&quot; class=&quot;cubist-stage&quot;&gt;
+    &lt;section class=&quot;page&quot;&gt;
+    page 1
+    &lt;/section&gt;
+    &lt;section class=&quot;page&quot;&gt;
+    page 2
+    &lt;/section&gt;
+    &lt;section class=&quot;page&quot;&gt;
+    page 3
+    &lt;/section&gt;
+    &lt;section class=&quot;page&quot;&gt;
+    page 4
+    &lt;/section&gt;
+&lt;/div&gt;</code></pre>
+            <p>the cubist instance in your javascript</p>
+            <pre><code class="language-javascript">var cubist = new Cubist(document.getElementById('cubist'));</code></pre>
+            <pre><code class="language-javascript">cubist.goto(0);
+cubist.next();
+cubist.previous();
+cubist.first();
+cubist.last();</code></pre>
+        </div>
     </section>
     <section class="page">
-        <iframe src="http://nodejs.org/" frameborder="0"></iframe>
+        <div>
+            <h2>Use at your own risk!</h2>
+            <p>Currently, <mark>cubist.js</mark> is</p>
+            <ul>
+                <li>not tested</li>
+                <li>not documented</li>
+                <li>the "fit-into-your-browser" script used here is not part of cubist</li>
+                <li>some beta-ish thing</li>
+            </ul>
+        </div>
     </section>
 
 </div>
 
 <div id="cube-nav">
-    <h1>cubist <span>demo</span></h1>
+    <h2>cubist</h2>
     <a class="first" href="#">first</a> &nbsp;&nbsp;
     <a class="prev" href="#">&lsaquo;&lsaquo;</a>
     <ul>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
+        <li><a href="#">Cubist</a></li>
+        <li><a href="#">Start</a></li>
+        <li><a href="#">Create</a></li>
+        <li><a href="#">Risks</a></li>
     </ul>
     <a class="next" href="#">&rsaquo;&rsaquo;</a>&nbsp;&nbsp;
     <a class="last" href="#">last</a>
 </div>
 <script type="text/javascript" src="scripts/cubist.all.min.js"></script>
+<script type="text/javascript" src="scripts/prism.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 </body>
 </html>
