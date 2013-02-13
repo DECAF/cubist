@@ -36,7 +36,6 @@ $ready-easing-fn: cubic-bezier(0.390, 0.575, 0.565, 1.000);
   @include box-sizing(border-box);
   display    : block;
   position   : absolute;
-  text-align : center;
   //border     : 2px solid #333;
 }
 
