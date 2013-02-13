@@ -37,9 +37,12 @@ class Cubist
   goto  : (index) ->
     @_cube.goto index
     
-FeatureCheck.check()
+
     
 window.Cubist = Cubist
 if typeof window.define is "function" && window.define.amd
-  window.define "cubist", [], ->
-    window.cubist
+  window.define "cubist", ['jquery'], ->
+    FeatureCheck.check()
+    window.Cubist
+else
+  FeatureCheck.check()

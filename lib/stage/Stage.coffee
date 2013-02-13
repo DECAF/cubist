@@ -4,8 +4,6 @@ Sides            = require './Sides'
 cubeHtml         = require "../cube/html/cubeSides"
 helper           = require '../util/helper'
 
-$window = $ window
-
 class Stage
   pageCount                : 0
   _stage                   : null
@@ -36,7 +34,7 @@ class Stage
     @_draw()
 
   _bindEvents : ->
-    $window.on "resize.cubist-#{helper.uid()}", =>
+    $(window).on "resize.cubist-#{helper.uid()}", =>
       @_onResize()
 
   _onResize : ->
