@@ -100,6 +100,7 @@ body {
 
 #cube-nav {
     position   : absolute;
+    z-index    : 100;
     bottom     : 0;
     left       : 0;
     width      : 100%;
@@ -125,9 +126,13 @@ body {
 }
 
 #cube-nav  a {
+    display         : inline-block;
+    vertical-align  : middle;
     font-size       : 26px;
+    line-height     : 36px;
     text-decoration : none;
     color           : #333;
+    padding         : 0 8px;
 }
 
 #cube-nav  a:hover {
@@ -143,22 +148,26 @@ body {
     font-size : 16px;
 }
 
+#cube-nav a.prev,
+#cube-nav a.next {
+    padding : 0 20px;
+}
+
 #cube-nav ul {
     list-style-type : none;
     display         : inline-block;
-    overflow        : hidden;
     margin          : 0;
     padding         : 0;
 
 }
 
 #cube-nav ul li {
-    display      : inline-block;
-    margin-right : 10px;
+    display        : inline-block;
+    vertical-align : middle;
+    margin         : 0;
 }
 
 #cube-nav ul li a {
-    display     : block;
     color       : black;
     font-size   : 20px;
     font-weight : bold;
