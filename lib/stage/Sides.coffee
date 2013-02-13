@@ -11,51 +11,47 @@ class Sides
     #@_sides = (@_cubeEl.querySelector(".#{selector}") for selector in selectors)
     @_sides = {}
     for selector in Sides.ALL_SIDES
-      @_sides[selector] = @_cubeEl.querySelector(".#{selector}")
-
-    console.dir @_sides
+      @_sides[selector] = $ @_cubeEl.querySelector(".#{selector}")
 
   resizeSides: (width, height)->
     if @_isRotatedVertically
-      console.log 'vertical'
-      $(@_sides[Sides.CSS_CLASS_FRONT]).css
+      @_sides[Sides.CSS_CLASS_FRONT].css
         transform: "translateZ(#{height / 2}px)" 
         
-      $(@_sides[Sides.CSS_CLASS_BACK]).css
+      @_sides[Sides.CSS_CLASS_BACK].css
         transform: "rotateX(180deg) translateZ(#{height / 2}px)"
 
-      $(@_sides[Sides.CSS_CLASS_RIGHT]).css
+      @_sides[Sides.CSS_CLASS_RIGHT].css
         transform: "rotateY(90deg) translateZ(#{width - height / 2}px)"
         width: height
         
-      $(@_sides[Sides.CSS_CLASS_LEFT]).css
+      @_sides[Sides.CSS_CLASS_LEFT].css
         transform: "rotateY(-90deg) translateZ(#{height / 2}px)"
         width: height
 
-      $(@_sides[Sides.CSS_CLASS_TOP]).css
+      @_sides[Sides.CSS_CLASS_TOP].css
         transform: "rotateX(90deg) translateZ(#{height / 2}px)"
         
-      $(@_sides[Sides.CSS_CLASS_BOTTOM]).css
+      @_sides[Sides.CSS_CLASS_BOTTOM].css
         transform: "rotateX( -90deg ) translateZ(#{height / 2}px)"
     else
-      console.log 'horizontal'
-      $(@_sides[Sides.CSS_CLASS_FRONT]).css
+      @_sides[Sides.CSS_CLASS_FRONT].css
         transform: "translateZ(#{width / 2}px)"
 
-      $(@_sides[Sides.CSS_CLASS_BACK]).css
+      @_sides[Sides.CSS_CLASS_BACK].css
         transform: "rotateY(180deg) translateZ(#{width / 2}px)"
 
-      $(@_sides[Sides.CSS_CLASS_RIGHT]).css
+      @_sides[Sides.CSS_CLASS_RIGHT].css
         transform: "rotateY(90deg) translateZ(#{width / 2}px)"
 
-      $(@_sides[Sides.CSS_CLASS_LEFT]).css
+      @_sides[Sides.CSS_CLASS_LEFT].css
         transform: "rotateY(-90deg) translateZ(#{width / 2}px)"
 
-      $(@_sides[Sides.CSS_CLASS_TOP]).css
+      @_sides[Sides.CSS_CLASS_TOP].css
         transform: "rotateX(90deg) translateZ(#{width / 2}px)"
         height: width
 
-      $(@_sides[Sides.CSS_CLASS_BOTTOM]).css
+      @_sides[Sides.CSS_CLASS_BOTTOM].css
         transform: "rotateX( -90deg ) translateZ(#{height - width / 2}px)"
         height: width
 
@@ -65,7 +61,7 @@ class Sides
     @_addPage page, index for page,index in pageElements
 
   _addPage : (pageEl, index) ->
-    @_sides[@_pageSides[index]].appendChild(pageEl)
+    @_sides[@_pageSides[index]].append(pageEl)
     helper.addClass pageEl, Sides.PAGE_ITEM_PREFIX + index
 
   updateSideSizes: (stageWidth, stageHeight)->

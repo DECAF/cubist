@@ -16,22 +16,26 @@ class Cubist
   
       options = new CubeOptions options
       @_cube = CubeFactory.getCube @el, options
-      @_cube.show options.get(CubeOptions.START_INDEX)
+      @goto options.get(CubeOptions.START_INDEX)
   
       helper.addClass @el, options.get(CubeOptions.CSS_CLASS_READY)
     else
       helper.addClass @el, options.get(CubeOptions.CSS_CLASS_NO_3D)
       
   next  : ->
+    @_cube.next()
+    
+  previous  : ->
+    @_cube.prev()
+    
+  first : ->
+    @_cube.first()
+    
+  last   : ->
+    @_cube.last()
 
-  prev  : ->
-
-  start : ->
-
-  end   : ->
-
-  jumpTo  : (index) ->
-    @_cube.show index
+  goto  : (index) ->
+    @_cube.goto index
     
 FeatureCheck.check()
     

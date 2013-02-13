@@ -1,7 +1,5 @@
 CubistOptions    = require '../config/CubistOptions'
-Rotation         = require './Rotation'
 Animator         = require './Animator'
-Index            = require './Index'
 Sides            = require './Sides'
 cubeHtml         = require "../cube/html/cubeSides"
 helper           = require '../util/helper'
@@ -9,11 +7,11 @@ helper           = require '../util/helper'
 $window = $ window
 
 class Stage
+  pageCount                : 0
   _stage                   : null
   _options                 : null
   _cubeEl                  : null
   _animator                : null
-  _index                   : null
   _sides                   : null
   _stageWidth              : 0
   _stageHeight             : 0
@@ -32,7 +30,6 @@ class Stage
     @_stage.appendChild @_cubeEl
 
     @_animator = new Animator @_stage, @_cubeEl, isVertical
-    @_index = new Index()
     @_sides = new Sides @_cubeEl, isVertical
     
     @_bindEvents()
@@ -66,19 +63,12 @@ class Stage
     
   addPages : (selector) ->
     pageElements = @_stage.querySelectorAll selector
-    
-
-    
+    @pageCount += pageElements.length    
     @_sides.addPages pageElements
     
-  rotateTo : (index) ->
-    throw new CubistException "index #{index} not possible" if index < 0 or index > Sides.MAX_PAGES
-    distance = @_index.getDistance index
-    
-    unless distance is Stage.NO_DISTANCE
-      @_index.setIndex index
-      console.log "rotating #{distance} times to index #{index}" 
-      @_animator.rotateCube distance
+  rotateCubeBy: (times) ->
+    unless times is Stage.NO_DISTANCE
+      @_animator.rotateCube times
   
 
 Stage.NO_DISTANCE          = 0

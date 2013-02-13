@@ -1,5 +1,4 @@
 Rotation         = require './Rotation'
-VendorTranslator = require '../util/VendorCssTranslator'
 
 class Animator
   _stage                   : null
@@ -11,7 +10,6 @@ class Animator
   constructor : (@_stage, cubeEl, @_isRotatedVertically) ->
     @_$cube = $ cubeEl
     @_rotation = new Rotation @_isRotatedVertically
-    console.dir window.getComputedStyle(@_stage, null)
 
   resizeCube: (width, height) ->
     @_$cube.css

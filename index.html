@@ -16,21 +16,21 @@
         }
 
         #cubist {
-            position : absolute;
-            top      : 0;
-            left     : 0;
-            bottom   : 40px;
-            width    : 100%;
-            opacity  : 0;
-            box-sizing: border-box;
-           /* 
-            width: 600px;
-            height: 400px;
-            bottom: auto;
-            left: 50%;
-            top: 50%;
-            margin-top: -200px;
-            margin-left: -300px;*/
+            position   : absolute;
+            top        : 0;
+            left       : 0;
+            bottom     : 0;
+            width      : 100%;
+            opacity    : 0;
+            box-sizing : border-box;
+            /* 
+             width: 600px;
+             height: 400px;
+             bottom: auto;
+             left: 50%;
+             top: 50%;
+             margin-top: -200px;
+             margin-left: -300px;*/
         }
 
         #cubist.cubist-ready {
@@ -40,40 +40,87 @@
         #cubist .cubist-face-front {
             background : #ccc;
         }
+
         #cubist .cubist-face-top {
             background : #eee;
         }
+
         #cubist .cubist-face-back {
             background : #ddd;
         }
+
         #cubist .cubist-face-bottom {
             background : #bbb;
         }
+
         #cubist .cubist-face-left {
             background : #dddeee;
         }
+
         #cubist .cubist-face-right {
             background : #bbbddd;
         }
 
         .page {
-            padding : 20px;
+            
         }
 
+        .page iframe {
+            width: 100%;
+            height: 100%;
+        }
         #cube-nav {
-            position : absolute;
-            bottom   : 0;
-            left     : 0;
-            width    : 100%;
+            position   : absolute;
+            bottom     : 0;
+            left       : 0;
+            width      : 100%;
+            text-align : center;
+            background: rgba(255,255,255,0.4);
+        }
+        #cube-nav h1 {
+            font-size: 14px;
+            color: #000;
+            font-weight : bold;
+            text-shadow : 1px 1px 6px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase   ;     
+            float: left;
+            margin-left: 10px;
+                                              
+        }
+
+        #cube-nav h1 span {
+            font-size: 11px;
+            text-shadow: none;
+            text-transform: none;
+        }
+        #cube-nav  a {
+            font-size : 26px;
+            text-decoration: none; 
+            color: #333;
+        }
+        #cube-nav  a:hover {
+            background: yellow;
+        }
+        #cube-nav > a {
+            
+        }
+        
+        #cube-nav a.first,
+        #cube-nav a.last {
+            font-size : 16px;
         }
 
         #cube-nav ul {
             list-style-type : none;
+            display         : inline-block;
+            overflow        : hidden;
+            margin          : 0;
+            padding         : 0;
 
         }
 
         #cube-nav ul li {
-            float        : left;
+            display      : inline-block;
             margin-right : 10px;
         }
 
@@ -92,55 +139,64 @@
 
 <div id="cubist" class="cubist-stage">
     <section class="page">
-        <h2>Page 1</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Facilis magnam maxime non officiis sed sunt totam
-            vel vero.Est, ipsam?</p>
+        <iframe src="http://twitter.github.com/bootstrap/" frameborder="0"></iframe>
     </section>
     <section class="page">
-        <h2>Page 2</h2>
-
-        <p>Aliquam commodi cupiditate dolorum earum ex facere, harum illo illum iure labore libero nam quae quam, sequi
-            soluta voluptas voluptate?</p>
+        <iframe src="http://compass-style.org/" frameborder="0"></iframe>
     </section>
     <section class="page">
-        <h2>Page 3</h2>
-
-        <p>Aliquid debitis eligendi error iste porro quas, repellat totam ut vel veniam.Delectus eius eos illo numquam
-            repellendus saepe voluptas.</p>
+        <iframe src="http://yeoman.io" frameborder="0"></iframe>
     </section>
     <section class="page">
-        <h2>Page 4</h2>
-
-        <p>Debitis dolorum ex facere in ipsam magnam maxime molestiae, odio odit officia perspiciatis quae quam qui,
-            quia rerum ut voluptate?</p>
+        <iframe src="http://nodejs.org/" frameborder="0"></iframe>
     </section>
 
 </div>
 
 <div id="cube-nav">
+    <h1>cubist <span>demo</span></h1>
+    <a class="first" href="#">first</a> 
+    <a class="prev" href="#">&lsaquo;&lsaquo;</a>
     <ul>
         <li><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
     </ul>
+    <a class="next" href="#">&rsaquo;&rsaquo;</a>
+    <a class="last" href="#">last</a>
 </div>
 <script type="text/javascript">
     (function () {
         var cube = new Cubist(document.getElementById('cubist'), {isRotatedVertically : false});
         /*$('.cubist-cube').css({
-            transform : 'translateZ(0px) rotateX(20deg) rotateY(-40deg)  scale3d(0.6, 0.6, 0.6)'
-        })*/
+         transform : 'translateZ(0px) rotateX(20deg) rotateY(-40deg)  scale3d(0.6, 0.6, 0.6)'
+         })*/
         //cube.show(1)
         window.setTimeout(function () {
             //cube.jumpTo(4)
         }, 1500)
 
-        $('#cube-nav').on('click', 'a', function (e) {
+        $('#cube-nav').on('click', 'ul li a', function (e) {
             e.preventDefault();
-            i = $('#cube-nav').find('a').index(this);
-            cube.jumpTo(i);
+            i = $('#cube-nav').find('ul li a').index(this);
+            cube.goto(i);
+        })
+        .on('click', '.next', function (e) {
+            e.preventDefault();
+            cube.next();
+        })
+        .on('click', '.prev', function (e) {
+            e.preventDefault();
+            cube.previous();
+        })
+        .on('click', '.first', function (e) {
+            e.preventDefault();
+            cube.first();
+        })
+        .on('click', '.last', function (e) {
+            e.preventDefault();
+            cube.last();
         });
     }());
 </script>

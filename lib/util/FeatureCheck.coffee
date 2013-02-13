@@ -11,9 +11,9 @@ module.exports =
     for own aTest of tests
       throw new CubistException(tests[aTest].message) unless tests[aTest].test()
 
+  # https://gist.github.com/lorenzopolidori/3794226, forked https://gist.github.com/grmlin/4944036    
   is3dCapable : ->
     el = document.createElement("p")
-    has3d = undefined
     transforms =
       webkitTransform : "-webkit-transform"
       OTransform      : "-o-transform"

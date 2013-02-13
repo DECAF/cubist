@@ -9,7 +9,7 @@ $ready-easing-fn: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 
 .cubist-stage {
   opacity : 0;
-  @include perspective(1200px);
+  @include perspective(2000px);
   @include perspective-origin(50% 50%);
   @include transition(opacity 500ms $ready-easing-fn);
 }
@@ -37,7 +37,7 @@ $ready-easing-fn: cubic-bezier(0.390, 0.575, 0.565, 1.000);
   display    : block;
   position   : absolute;
   text-align : center;
-  border     : 2px solid #333;
+  //border     : 2px solid #333;
 }
 
 // Face backgrounds

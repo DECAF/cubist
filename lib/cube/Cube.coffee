@@ -1,17 +1,36 @@
-Stage             = require '../stage/Stage'
-ContentController = require './ContentController'
-CubistOptions     = require './../config/CubistOptions'
+Stage           = require '../stage/Stage'
+Index           = require './Index'
+CubistException = require '../util/CubistException'
+CubistOptions   = require './../config/CubistOptions'
 
 class Cube
-  _contentController : null
-  _stage             : null
+  _stage : null
+  _index : null
 
   constructor : (el, options) ->
     @_stage = new Stage el, options
     @_stage.addPages options.get(CubistOptions.PAGE_SELECTOR)
-    cubeEl = @_stage.getCubeEl()
+    @_index = new Index(@_stage.pageCount)
 
-  show : (index) ->
-    @_stage.rotateTo index
+  goto : (index) ->
+    throw new CubistException "index #{index} not possible" unless @_index.isValid index
+    
+    distance = @_index.getDistance index
+    @_index.setIndex index
+    @_stage.rotateCubeBy distance
+   
+  next : ->
+    @goto @_index.getNextIndex()
+
+  prev : ->
+    @goto @_index.getPrevIndex()  
+    
+  last:  ->
+    @goto @_index.getLastIndex()
+
+  first: ->
+    @goto @_index.getFirstIndex()
+
+
 
 module.exports = Cube

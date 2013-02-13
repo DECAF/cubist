@@ -20,12 +20,12 @@ CubistOptions.IS_ROTATED_VERTICALLY = "isRotatedVertically"
 
 
 CubistOptions.defaults = {}
-CubistOptions.defaults[CubistOptions.PAGE_SELECTOR]        = '.page'
-CubistOptions.defaults[CubistOptions.CSS_CLASS_STAGE]      = 'cubist-stage'
-CubistOptions.defaults[CubistOptions.CSS_CLASS_CUBE]       = 'cubist-cube'
-CubistOptions.defaults[CubistOptions.CSS_CLASS_READY]      = 'cubist-ready'
-CubistOptions.defaults[CubistOptions.CSS_CLASS_NO_3D]      = 'cubist-no-3d'
-CubistOptions.defaults[CubistOptions.START_INDEX]          = 0
+CubistOptions.defaults[CubistOptions.PAGE_SELECTOR]         = '.page'
+CubistOptions.defaults[CubistOptions.CSS_CLASS_STAGE]       = 'cubist-stage'
+CubistOptions.defaults[CubistOptions.CSS_CLASS_CUBE]        = 'cubist-cube'
+CubistOptions.defaults[CubistOptions.CSS_CLASS_READY]       = 'cubist-ready'
+CubistOptions.defaults[CubistOptions.CSS_CLASS_NO_3D]       = 'cubist-no-3d'
+CubistOptions.defaults[CubistOptions.START_INDEX]           = 0
 CubistOptions.defaults[CubistOptions.IS_ROTATED_VERTICALLY] = no
 
 module.exports = CubistOptions

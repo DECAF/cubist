@@ -9,21 +9,6 @@ class Rotation
   constructor     : (@_isVertical) ->
     @_selectedRotation = if @_isVertical then Rotation.ROTATE_X else Rotation.ROTATE_Y
 
-  getRearFaceRotationFn : ->
-    @_getTransformRotation @_selectedRotation, Rotation.REAR
-  
-  getRightFaceRotationFn : ->
-    @_getTransformRotation Rotation.ROTATE_Y , Rotation.RIGHT
-
-  getBottomFaceRotationFn : ->
-    @_getTransformRotation Rotation.ROTATE_X, Rotation.BOTTOM
-      
-  getNextRotationFn : ->
-    @_currentRotation + Rotation.FULL_FLIP
-
-  getPrevRotationFn : ->
-    @_currentRotation - Rotation.FULL_FLIP
-    
   getCurrentRotationFn: ->
     @_getTransformRotation @_selectedRotation, @_currentRotation    
     
@@ -37,9 +22,6 @@ class Rotation
     direction.replace Rotation.ROTATE_FN_DEG_PLACEHOLDER, degree
     
 Rotation.FULL_FLIP                 = -90
-Rotation.RIGHT                     = 90
-Rotation.BOTTOM                    = -90
-Rotation.REAR                      = 180
 Rotation.ROTATE_FN_DEG_PLACEHOLDER = '{{DEG}}'
 Rotation.ROTATE_X                  = "rotateX(#{Rotation.ROTATE_FN_DEG_PLACEHOLDER}deg)"
 Rotation.ROTATE_Y                  = "rotateY(#{Rotation.ROTATE_FN_DEG_PLACEHOLDER}deg)"
