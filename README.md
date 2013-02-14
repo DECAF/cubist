@@ -1,4 +1,9 @@
-# cubist
+# CUBIST
+
+**Hum? It rotates. And it's under development. But have a look at the demo page:  
+http://decaf.github.com/cubist/**
+
+…
 
 ## Prerequisites
 * install `compass` from [here](http://compass-style.org/)
